@@ -82,7 +82,7 @@ app.post('/alertdriver', (req,res) => {
     })
 })
 
-app.get('/alertpolice', (req,res) => {
+app.post('/alertpolice', (req,res) => {
     let data = {
         title:req.body.title,
         body:req.body.body
@@ -111,7 +111,7 @@ app.get('/alertpolice', (req,res) => {
     })
 })
 
-app.get('/alertpatient', (req,res) => {
+app.post('/alertpatient', (req,res) => {
     let data = {
         name:req.body.name,
         title:req.body.title,
