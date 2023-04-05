@@ -117,7 +117,7 @@ app.post('/alertpatient', (req,res) => {
         title:req.body.title,
         body:req.body.body
     }
-    db.users.find({role:'patient',name:data.name},(err,docs) => {
+    db.users.find({role:'user',name:data.name},(err,docs) => {
         if(err){
             res.send('Something went wrong');
         }else{
