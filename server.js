@@ -20,6 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const cs="mongodb://balamahesh:balamahesh@ac-ksc2ibe-shard-00-00.5bnlukb.mongodb.net:27017,ac-ksc2ibe-shard-00-01.5bnlukb.mongodb.net:27017,ac-ksc2ibe-shard-00-02.5bnlukb.mongodb.net:27017/ambulance?ssl=true&replicaSet=atlas-5kgaa4-shard-0&authSource=admin&retryWrites=true&w=majority"
 const db=mongojs(cs,["users"])
 
+app.get('/', (req,res) => {
+    res.send('Welcome to api')
+})
+
 app.post('/saveuser', (req,res) => {
     let data = {
 		role:req.body.role,
