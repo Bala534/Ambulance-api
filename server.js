@@ -59,7 +59,8 @@ app.post('/alertdriver', (req,res) => {
     let data = {
         name:req.body.name,
         title:req.body.title,
-        body:req.body.body
+        body:req.body.body,
+        id: req.id
     }
     db.users.find({role:'driver',name:data.name},(err,docs) => {
         if(err){
@@ -72,12 +73,16 @@ app.post('/alertdriver', (req,res) => {
                     title: data.title,
                     body: data.body
                 },
+                data: {
+                    id: data.id
+                },
                 token: tok
                 };
             messaging.send(payload)
             .then((result) => {
                 console.log(result)
             })
+            res.send("Done")
         }
     })
 })
@@ -85,7 +90,9 @@ app.post('/alertdriver', (req,res) => {
 app.post('/alertpolice', (req,res) => {
     let data = {
         title:req.body.title,
-        body:req.body.body
+        body:req.body.body,
+        id: req.body.id
+
     }
     db.users.find({role:'police'},(err,docs) => {
         if(err){
@@ -100,6 +107,9 @@ app.post('/alertpolice', (req,res) => {
                         title: data.title,
                         body: data.body
                     },
+                    data: {
+                        id: data.id
+                    },
                     token: tok
                     };
                 messaging.send(payload1)
@@ -107,6 +117,7 @@ app.post('/alertpolice', (req,res) => {
                     console.log(result)
                 })
             }
+            res.send("Done")
         }
     })
 })
@@ -115,7 +126,8 @@ app.post('/alertpatient', (req,res) => {
     let data = {
         name:req.body.name,
         title:req.body.title,
-        body:req.body.body
+        body:req.body.body,
+        id: req.body.id
     }
     db.users.find({role:'user',name:data.name},(err,docs) => {
         if(err){
@@ -128,12 +140,16 @@ app.post('/alertpatient', (req,res) => {
                     title: data.title,
                     body: data.body
                 },
+                data: {
+                    id: data.id,
+                },
                 token: tok
                 };
             messaging.send(payload)
             .then((result) => {
                 console.log(result)
             })
+            res.send("Done")
         }
     })
 })
