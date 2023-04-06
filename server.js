@@ -33,7 +33,7 @@ app.post('/saveuser', (req,res) => {
     db.users.find({name:data.name,role:data.role},(err,docs) => {
         db.users.remove({name:data.name,role:data.role})
         db.users.insert(data,function(err,docs){
-            console.log('Data inserted')
+            res.send('Data inserted')
         })
     })
     db.users.find({token:data.token}, (err,docs) => {
