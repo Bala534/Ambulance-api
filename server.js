@@ -60,7 +60,7 @@ app.post('/alertdriver', (req,res) => {
         name:req.body.name,
         title:req.body.title,
         body:req.body.body,
-        id: req.id
+        id: req.body.id
     }
     db.users.find({role:'driver',name:data.name},(err,docs) => {
         if(err){
