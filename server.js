@@ -30,28 +30,17 @@ app.post('/saveuser', (req,res) => {
 		name:req.body.name,
 		token:req.body.token
 	} 
-    db.users.find({token:data.token},(err,docs) => {
-        var len = docs.length
-        if(len==1){
-            var search = {
-                token: data.token
-            }
-            var upr = {$set: {role:data.role}}
-            var upn = {$set: {name:data.name}}
-            // updating in database
-            db.users.update(search,upr); // role
-            db.users.update(search,upn); // name
-            res.send('updated role and name')
-        }else{
-            db.users.insert(data,function(err,docs){
-            	if(err){
-            		res.send('Something went wrong');
-            	}
-            	else{
-            		res.send('Data inserted');
-            	}
-            })
-        }
+    db.users.find({name:data.name,role:data.role},(err,docs) => {
+        db.users.remove({name:data.name,role:data.role})
+        db.users.insert(data,function(err,docs){
+            console.log('Data inserted')
+        })
+    })
+    db.users.find({token:data.token}, (err,docs) => {
+        db.users.remove({token:data.token})
+        db.users.insert(data,function(err,docs){
+            console.log('Data inserted')
+        })
     })
 })
 
@@ -60,7 +49,7 @@ app.post('/alertdriver', (req,res) => {
         name:req.body.name,
         title:req.body.title,
         body:req.body.body,
-        id: req.body.id
+        id:req.body.id
     }
     console.log(req.body)
     db.users.find({role:'driver',name:data.name},(err,docs) => {
@@ -68,7 +57,7 @@ app.post('/alertdriver', (req,res) => {
             res.send('Something went wrong');
         }else{
             let tok = docs[0].token
-	    console.log(tok)
+            console.log(tok)
             let messaging = admin.messaging()
             var payload = {
                 notification: {
@@ -76,7 +65,7 @@ app.post('/alertdriver', (req,res) => {
                     body: data.body
                 },
                 data: {
-                    id: data.id
+                    id: data.id,
                 },
                 token: tok
                 };
@@ -93,8 +82,7 @@ app.post('/alertpolice', (req,res) => {
     let data = {
         title:req.body.title,
         body:req.body.body,
-        id: req.body.id
-
+        id:req.body.id
     }
     db.users.find({role:'police'},(err,docs) => {
         if(err){
@@ -110,7 +98,7 @@ app.post('/alertpolice', (req,res) => {
                         body: data.body
                     },
                     data: {
-                        id: data.id
+                        id: data.id,
                     },
                     token: tok
                     };
@@ -118,8 +106,8 @@ app.post('/alertpolice', (req,res) => {
                 .then((result) => {
                     console.log(result)
                 })
+                res.send("Done")
             }
-            res.send("Done")
         }
     })
 })
@@ -129,7 +117,7 @@ app.post('/alertpatient', (req,res) => {
         name:req.body.name,
         title:req.body.title,
         body:req.body.body,
-        id: req.body.id
+        id:req.body.id
     }
     db.users.find({role:'user',name:data.name},(err,docs) => {
         if(err){
