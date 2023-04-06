@@ -62,11 +62,13 @@ app.post('/alertdriver', (req,res) => {
         body:req.body.body,
         id: req.body.id
     }
+    console.log(req.body)
     db.users.find({role:'driver',name:data.name},(err,docs) => {
         if(err){
             res.send('Something went wrong');
         }else{
             let tok = docs[0].token
+	    console.log(tok)
             let messaging = admin.messaging()
             var payload = {
                 notification: {
