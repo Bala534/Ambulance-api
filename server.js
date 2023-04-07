@@ -1,5 +1,5 @@
 let admin = require("firebase-admin");
-let serviceAccount = require('./arched-jetty-288812-firebase-adminsdk-vlyx6-3ae0e48ef8.json')
+let serviceAccount = require('./ambulance-2-e9b86-firebase-adminsdk-z4mvm-d92b82d770.json')
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
@@ -9,7 +9,7 @@ let app = express();
 let mongodb = require("mongodb");
 let mongojs = require("mongojs");
 let FCM = require("fcm-node");
-let serverKey = require('./arched-jetty-288812-firebase-adminsdk-vlyx6-3ae0e48ef8.json')
+let serverKey = require('./ambulance-2-e9b86-firebase-adminsdk-z4mvm-d92b82d770.json')
 let fcm = new FCM(serverKey)
 let bodyParser = require('body-parser');
 
