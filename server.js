@@ -21,7 +21,7 @@ const cs="mongodb://balamahesh:balamahesh@ac-ksc2ibe-shard-00-00.5bnlukb.mongodb
 const db=mongojs(cs,["users"])
 
 app.get('/', (req,res) => {
-    res.send('Welcome to api')
+    res.send('Welcome')
 })
 
 app.post('/saveuser', (req,res) => {
